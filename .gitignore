@@ -3,6 +3,11 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/main/VisualStudio.gitignore
 
+# Local secrets — never commit
+backend/appsettings.Development.json
+backend/appsettings.*.json
+!backend/appsettings.json
+
 # User-specific files
 *.rsuser
 *.suo
@@ -427,3 +432,6 @@ FodyWeavers.xsd
 *.msix
 *.msm
 *.msp
+# Local AI runtime state
+.atl/
+.gentle-ai/
