@@ -438,3 +438,7 @@ FodyWeavers.xsd
 
 # Take-home test brief — not part of the public deliverable
 Prueba/
+
+# AI tooling config — local only
+.claude/
+.config/
