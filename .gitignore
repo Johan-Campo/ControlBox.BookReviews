@@ -435,3 +435,6 @@ FodyWeavers.xsd
 # Local AI runtime state
 .atl/
 .gentle-ai/
+
+# Take-home test brief — not part of the public deliverable
+Prueba/
