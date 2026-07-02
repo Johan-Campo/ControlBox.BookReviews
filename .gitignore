@@ -442,3 +442,5 @@ Prueba/
 # AI tooling config — local only
 .claude/
 .config/
+frontend/AGENTS.md
+frontend/CLAUDE.md
