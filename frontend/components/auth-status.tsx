@@ -38,9 +38,12 @@ export function AuthStatus({ user }: AuthStatusProps) {
 
   return (
     <div className="flex items-center gap-4 text-sm">
-      <span className="text-gray-600">
+      <Link
+        href="/profile"
+        className="rounded text-gray-600 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
+      >
         Hola, <span className="font-medium text-gray-900">{user.username}</span>
-      </span>
+      </Link>
       <button
         type="button"
         onClick={handleLogout}
