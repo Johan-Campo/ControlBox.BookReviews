@@ -1,6 +1,32 @@
 @BookReviewsApi_HostAddress = http://localhost:5241
 
-GET {{BookReviewsApi_HostAddress}}/weatherforecast/
+GET {{BookReviewsApi_HostAddress}}/api/books
 Accept: application/json
+
+###
+
+GET {{BookReviewsApi_HostAddress}}/api/books/categories
+Accept: application/json
+
+###
+
+POST {{BookReviewsApi_HostAddress}}/api/auth/register
+Content-Type: application/json
+
+{
+  "username": "demo",
+  "email": "demo@example.com",
+  "password": "Test1234!"
+}
+
+###
+
+POST {{BookReviewsApi_HostAddress}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "demo@example.com",
+  "password": "Test1234!"
+}
 
 ###
