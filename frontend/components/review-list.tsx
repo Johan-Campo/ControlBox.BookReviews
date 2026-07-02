@@ -18,7 +18,7 @@ export function ReviewList({ reviews }: ReviewListProps) {
             <span className="text-sm text-gray-500">★ {review.rating}</span>
           </div>
           <p className="mt-1 text-sm text-gray-700">{review.comment}</p>
-          <p className="mt-2 text-xs text-gray-400">
+          <p className="mt-2 text-xs text-gray-500">
             {new Date(review.createdAt).toLocaleDateString()}
             {review.updatedAt && " (edited)"}
           </p>

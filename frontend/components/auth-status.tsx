@@ -20,12 +20,15 @@ export function AuthStatus({ user }: AuthStatusProps) {
   if (!user) {
     return (
       <div className="flex items-center gap-4 text-sm">
-        <Link href="/login" className="hover:underline">
+        <Link
+          href="/login"
+          className="rounded hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
+        >
           Sign in
         </Link>
         <Link
           href="/register"
-          className="rounded-md bg-blue-600 px-3 py-1.5 font-medium text-white hover:bg-blue-700"
+          className="rounded-md bg-blue-600 px-3 py-1.5 font-medium text-white hover:bg-blue-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
         >
           Register
         </Link>
@@ -41,7 +44,7 @@ export function AuthStatus({ user }: AuthStatusProps) {
       <button
         type="button"
         onClick={handleLogout}
-        className="rounded-md border border-gray-300 px-3 py-1.5 font-medium hover:bg-gray-50"
+        className="rounded-md border border-gray-300 px-3 py-1.5 font-medium hover:bg-gray-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
       >
         Log out
       </button>

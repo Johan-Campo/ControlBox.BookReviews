@@ -42,13 +42,16 @@ export function RegisterForm() {
         </label>
         <input
           id="username"
+          name="username"
           type="text"
+          autoComplete="username"
+          spellCheck={false}
           required
           minLength={3}
           maxLength={50}
           value={username}
           onChange={(event) => setUsername(event.target.value)}
-          className="rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="rounded-md border border-gray-300 px-3 py-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
         />
       </div>
       <div className="flex flex-col gap-1">
@@ -57,11 +60,14 @@ export function RegisterForm() {
         </label>
         <input
           id="email"
+          name="email"
           type="email"
+          autoComplete="email"
+          spellCheck={false}
           required
           value={email}
           onChange={(event) => setEmail(event.target.value)}
-          className="rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="rounded-md border border-gray-300 px-3 py-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
         />
       </div>
       <div className="flex flex-col gap-1">
@@ -70,21 +76,28 @@ export function RegisterForm() {
         </label>
         <input
           id="password"
+          name="password"
           type="password"
+          autoComplete="new-password"
+          spellCheck={false}
           required
           minLength={6}
           value={password}
           onChange={(event) => setPassword(event.target.value)}
-          className="rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="rounded-md border border-gray-300 px-3 py-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
         />
       </div>
-      {error && <p className="text-sm text-red-600">{error}</p>}
+      {error && (
+        <p role="alert" className="text-sm text-red-600">
+          {error}
+        </p>
+      )}
       <button
         type="submit"
         disabled={isSubmitting}
-        className="rounded-md bg-blue-600 px-4 py-2 font-medium text-white hover:bg-blue-700 disabled:opacity-50"
+        className="rounded-md bg-blue-600 px-4 py-2 font-medium text-white hover:bg-blue-700 disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
       >
-        {isSubmitting ? "Creating account..." : "Create account"}
+        {isSubmitting ? "Creating account…" : "Create account"}
       </button>
     </form>
   );

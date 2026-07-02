@@ -9,7 +9,7 @@ export function BookCard({ book }: BookCardProps) {
   return (
     <Link
       href={`/books/${book.id}`}
-      className="flex flex-col gap-2 rounded-lg border border-gray-200 p-4 hover:border-blue-400 hover:shadow-sm"
+      className="flex flex-col gap-2 rounded-lg border border-gray-200 p-4 hover:border-blue-400 hover:shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
     >
       <span className="inline-block w-fit rounded-full bg-gray-100 px-2 py-0.5 text-xs font-medium text-gray-600">
         {book.category}

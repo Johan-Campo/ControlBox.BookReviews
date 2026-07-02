@@ -23,8 +23,11 @@ export default async function BookDetailPage({ params }: BookDetailPageProps) {
   if (!book) notFound();
 
   return (
-    <main className="mx-auto w-full max-w-3xl flex-1 px-6 py-8">
-      <Link href="/" className="text-sm text-blue-600 hover:underline">
+    <main id="main-content" className="mx-auto w-full max-w-3xl flex-1 px-6 py-8">
+      <Link
+        href="/"
+        className="rounded text-sm text-blue-600 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
+      >
         ← Back to books
       </Link>
 
@@ -48,14 +51,20 @@ export default async function BookDetailPage({ params }: BookDetailPageProps) {
           <ReviewForm bookId={book.id} />
         ) : (
           <p className="text-sm text-gray-500">
-            <Link href="/login" className="text-blue-600 hover:underline">
+            <Link
+              href="/login"
+              className="rounded text-blue-600 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
+            >
               Sign in
             </Link>{" "}
             to leave a review.
           </p>
         )}
 
-        <ReviewList reviews={reviews} />
+        <div>
+          <h2 className="mb-3 text-lg font-semibold">Reviews</h2>
+          <ReviewList reviews={reviews} />
+        </div>
       </section>
     </main>
   );
