@@ -3,8 +3,8 @@ import Link from "next/link";
 import { getBookById } from "@/lib/api/books";
 import { getReviews } from "@/lib/api/reviews";
 import { getSessionUser } from "@/lib/session";
-import { ReviewList } from "@/components/review-list";
 import { ReviewForm } from "./review-form";
+import { ReviewList } from "./review-list";
 
 interface BookDetailPageProps {
   params: Promise<{ id: string }>;
@@ -63,7 +63,7 @@ export default async function BookDetailPage({ params }: BookDetailPageProps) {
 
         <div>
           <h2 className="mb-3 text-lg font-semibold">Reseñas</h2>
-          <ReviewList reviews={reviews} />
+          <ReviewList reviews={reviews} bookId={book.id} currentUserId={user?.id ?? null} />
         </div>
       </section>
     </main>
