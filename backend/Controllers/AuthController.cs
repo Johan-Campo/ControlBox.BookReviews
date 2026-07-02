@@ -35,4 +35,25 @@ public class AuthController(IAuthService authService) : ControllerBase
             return Unauthorized(new ProblemDetails { Title = ex.Message });
         }
     }
+
+    [HttpPost("forgot-password")]
+    public async Task<IActionResult> ForgotPassword(ForgotPasswordRequest request)
+    {
+        var response = await authService.ForgotPasswordAsync(request);
+        return Ok(response);
+    }
+
+    [HttpPost("reset-password")]
+    public async Task<IActionResult> ResetPassword(ResetPasswordRequest request)
+    {
+        try
+        {
+            await authService.ResetPasswordAsync(request);
+            return NoContent();
+        }
+        catch (UnauthorizedAccessException ex)
+        {
+            return Unauthorized(new ProblemDetails { Title = ex.Message });
+        }
+    }
 }

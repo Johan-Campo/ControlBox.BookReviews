@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace BookReviewsApi.Services;
@@ -44,6 +45,41 @@ public class AuthService(AppDbContext db, IConfiguration config) : IAuthService
 
         return new AuthResponse(GenerateToken(user), user.Username, user.Email);
     }
+
+    public async Task<ForgotPasswordResponse> ForgotPasswordAsync(ForgotPasswordRequest request)
+    {
+        const string genericMessage = "Si el correo existe, vas a poder restablecer tu contraseña.";
+
+        var user = await db.Users.FirstOrDefaultAsync(u => u.Email == request.Email);
+        if (user is null)
+            return new ForgotPasswordResponse(genericMessage, null);
+
+        var rawToken = Convert.ToHexString(RandomNumberGenerator.GetBytes(32));
+        user.PasswordResetTokenHash = HashToken(rawToken);
+        user.PasswordResetTokenExpiresAt = DateTime.UtcNow.AddHours(1);
+        await db.SaveChangesAsync();
+
+        return new ForgotPasswordResponse(genericMessage, rawToken);
+    }
+
+    public async Task ResetPasswordAsync(ResetPasswordRequest request)
+    {
+        var tokenHash = HashToken(request.Token);
+        var user = await db.Users.FirstOrDefaultAsync(u =>
+            u.PasswordResetTokenHash == tokenHash &&
+            u.PasswordResetTokenExpiresAt > DateTime.UtcNow);
+
+        if (user is null)
+            throw new UnauthorizedAccessException("El enlace de restablecimiento es inválido o expiró.");
+
+        user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(request.NewPassword);
+        user.PasswordResetTokenHash = null;
+        user.PasswordResetTokenExpiresAt = null;
+        await db.SaveChangesAsync();
+    }
+
+    private static string HashToken(string token) =>
+        Convert.ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes(token)));
 
     private string GenerateToken(User user)
     {

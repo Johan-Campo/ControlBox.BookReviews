@@ -19,6 +19,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
             entity.Property(u => u.Email).HasMaxLength(200).IsRequired();
             entity.Property(u => u.PasswordHash).IsRequired();
             entity.Property(u => u.ProfilePhotoUrl).HasMaxLength(500);
+            entity.Property(u => u.PasswordResetTokenHash).HasMaxLength(128);
         });
 
         modelBuilder.Entity<Book>(entity =>
