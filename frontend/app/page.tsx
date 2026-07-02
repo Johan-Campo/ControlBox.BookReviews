@@ -15,25 +15,25 @@ export default async function HomePage({ searchParams }: HomePageProps) {
 
   return (
     <main id="main-content" className="flex-1 px-6 py-8">
-      <h1 className="mb-6 text-2xl font-bold">Books</h1>
+      <h1 className="mb-6 text-2xl font-bold">Libros</h1>
 
       <form action="/" method="GET" className="mb-8 flex flex-wrap items-end gap-3">
         <div className="flex min-w-[240px] flex-1 flex-col gap-1">
           <label htmlFor="search" className="text-sm font-medium">
-            Search
+            Buscar
           </label>
           <input
             id="search"
             type="search"
             name="search"
-            placeholder="Search by title, author or category"
+            placeholder="Buscar por título, autor o categoría"
             defaultValue={search}
             className="rounded-md border border-gray-300 px-3 py-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
           />
         </div>
         <div className="flex flex-col gap-1">
           <label htmlFor="category" className="text-sm font-medium">
-            Category
+            Categoría
           </label>
           <select
             id="category"
@@ -41,7 +41,7 @@ export default async function HomePage({ searchParams }: HomePageProps) {
             defaultValue={category ?? ""}
             className="rounded-md border border-gray-300 px-3 py-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
           >
-            <option value="">All categories</option>
+            <option value="">Todas las categorías</option>
             {categories.map((cat) => (
               <option key={cat} value={cat}>
                 {cat}
@@ -53,12 +53,12 @@ export default async function HomePage({ searchParams }: HomePageProps) {
           type="submit"
           className="rounded-md bg-blue-600 px-4 py-2 font-medium text-white hover:bg-blue-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
         >
-          Search
+          Buscar
         </button>
       </form>
 
       {books.length === 0 ? (
-        <p className="text-gray-500">No books found.</p>
+        <p className="text-gray-500">No se encontraron libros.</p>
       ) : (
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {books.map((book) => (

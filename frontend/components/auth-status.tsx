@@ -24,13 +24,13 @@ export function AuthStatus({ user }: AuthStatusProps) {
           href="/login"
           className="rounded hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
         >
-          Sign in
+          Iniciar sesión
         </Link>
         <Link
           href="/register"
           className="rounded-md bg-blue-600 px-3 py-1.5 font-medium text-white hover:bg-blue-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
         >
-          Register
+          Registrarse
         </Link>
       </div>
     );
@@ -39,14 +39,14 @@ export function AuthStatus({ user }: AuthStatusProps) {
   return (
     <div className="flex items-center gap-4 text-sm">
       <span className="text-gray-600">
-        Hi, <span className="font-medium text-gray-900">{user.username}</span>
+        Hola, <span className="font-medium text-gray-900">{user.username}</span>
       </span>
       <button
         type="button"
         onClick={handleLogout}
         className="rounded-md border border-gray-300 px-3 py-1.5 font-medium hover:bg-gray-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
       >
-        Log out
+        Cerrar sesión
       </button>
     </div>
   );

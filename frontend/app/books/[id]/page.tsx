@@ -28,7 +28,7 @@ export default async function BookDetailPage({ params }: BookDetailPageProps) {
         href="/"
         className="rounded text-sm text-blue-600 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
       >
-        ← Back to books
+        ← Volver a los libros
       </Link>
 
       <div className="mt-4 flex flex-col gap-2">
@@ -42,7 +42,7 @@ export default async function BookDetailPage({ params }: BookDetailPageProps) {
         <p className="text-gray-700">{book.summary}</p>
         <div className="flex items-center gap-1 text-sm text-gray-500">
           <span>★ {book.averageRating.toFixed(1)}</span>
-          <span>({book.reviewCount} reviews)</span>
+          <span>({book.reviewCount} reseñas)</span>
         </div>
       </div>
 
@@ -55,14 +55,14 @@ export default async function BookDetailPage({ params }: BookDetailPageProps) {
               href="/login"
               className="rounded text-blue-600 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
             >
-              Sign in
+              Inicia sesión
             </Link>{" "}
-            to leave a review.
+            para dejar una reseña.
           </p>
         )}
 
         <div>
-          <h2 className="mb-3 text-lg font-semibold">Reviews</h2>
+          <h2 className="mb-3 text-lg font-semibold">Reseñas</h2>
           <ReviewList reviews={reviews} />
         </div>
       </section>

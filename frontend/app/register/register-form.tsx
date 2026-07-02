@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { extractErrorMessage } from "@/lib/api-error";
 
 export function RegisterForm() {
   const router = useRouter();
@@ -26,7 +27,7 @@ export function RegisterForm() {
 
     if (!response.ok) {
       const data = await response.json();
-      setError(data.title ?? "Could not create the account.");
+      setError(extractErrorMessage(data, "No se pudo crear la cuenta."));
       return;
     }
 
@@ -38,7 +39,7 @@ export function RegisterForm() {
     <form onSubmit={handleSubmit} className="flex w-full max-w-sm flex-col gap-4">
       <div className="flex flex-col gap-1">
         <label htmlFor="username" className="text-sm font-medium">
-          Username
+          Nombre de usuario
         </label>
         <input
           id="username"
@@ -56,7 +57,7 @@ export function RegisterForm() {
       </div>
       <div className="flex flex-col gap-1">
         <label htmlFor="email" className="text-sm font-medium">
-          Email
+          Correo electrónico
         </label>
         <input
           id="email"
@@ -72,7 +73,7 @@ export function RegisterForm() {
       </div>
       <div className="flex flex-col gap-1">
         <label htmlFor="password" className="text-sm font-medium">
-          Password
+          Contraseña
         </label>
         <input
           id="password"
@@ -97,7 +98,7 @@ export function RegisterForm() {
         disabled={isSubmitting}
         className="rounded-md bg-blue-600 px-4 py-2 font-medium text-white hover:bg-blue-700 disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
       >
-        {isSubmitting ? "Creating account…" : "Create account"}
+        {isSubmitting ? "Creando cuenta…" : "Crear cuenta"}
       </button>
     </form>
   );

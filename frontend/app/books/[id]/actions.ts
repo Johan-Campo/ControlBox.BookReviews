@@ -1,6 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { extractErrorMessage } from "@/lib/api-error";
 import { getApiUrl } from "@/lib/api-url";
 import { getSessionToken } from "@/lib/session";
 
@@ -14,7 +15,7 @@ export async function createReview(
   formData: FormData
 ): Promise<ReviewFormState> {
   const token = await getSessionToken();
-  if (!token) return { error: "You must be signed in to leave a review." };
+  if (!token) return { error: "Debes iniciar sesión para dejar una reseña." };
 
   const rating = Number(formData.get("rating"));
   const comment = String(formData.get("comment"));
@@ -30,7 +31,7 @@ export async function createReview(
 
   if (!response.ok) {
     const error = await response.json();
-    return { error: error.title ?? "Could not submit the review." };
+    return { error: extractErrorMessage(error, "No se pudo enviar la reseña.") };
   }
 
   revalidatePath(`/books/${bookId}`);

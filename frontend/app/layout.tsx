@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "BookReviews",
-  description: "Browse, search and review books.",
+  description: "Explora, busca y reseña libros.",
 };
 
 export default function RootLayout({
@@ -25,7 +25,7 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="en"
+      lang="es"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
@@ -33,7 +33,7 @@ export default function RootLayout({
           href="#main-content"
           className="sr-only focus-visible:not-sr-only focus-visible:absolute focus-visible:left-4 focus-visible:top-4 focus-visible:z-50 focus-visible:rounded-md focus-visible:bg-blue-600 focus-visible:px-4 focus-visible:py-2 focus-visible:text-white"
         >
-          Skip to content
+          Saltar al contenido
         </a>
         <Nav />
         {children}

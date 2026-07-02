@@ -6,7 +6,7 @@ interface ReviewListProps {
 
 export function ReviewList({ reviews }: ReviewListProps) {
   if (reviews.length === 0) {
-    return <p className="text-sm text-gray-500">No reviews yet. Be the first to leave one.</p>;
+    return <p className="text-sm text-gray-500">Todavía no hay reseñas. Sé el primero en dejar una.</p>;
   }
 
   return (
@@ -19,8 +19,8 @@ export function ReviewList({ reviews }: ReviewListProps) {
           </div>
           <p className="mt-1 text-sm text-gray-700">{review.comment}</p>
           <p className="mt-2 text-xs text-gray-500">
-            {new Date(review.createdAt).toLocaleDateString()}
-            {review.updatedAt && " (edited)"}
+            {new Date(review.createdAt).toLocaleDateString("es")}
+            {review.updatedAt && " (editado)"}
           </p>
         </li>
       ))}

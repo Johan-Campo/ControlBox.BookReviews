@@ -15,11 +15,11 @@ export function ReviewForm({ bookId }: ReviewFormProps) {
 
   return (
     <form action={formAction} className="flex flex-col gap-3 rounded-lg border border-gray-200 p-4">
-      <h2 className="font-semibold">Leave a review</h2>
+      <h2 className="font-semibold">Dejar una reseña</h2>
 
       <div className="flex flex-col gap-1">
         <label htmlFor="rating" className="text-sm font-medium">
-          Rating
+          Calificación
         </label>
         <select
           id="rating"
@@ -37,7 +37,7 @@ export function ReviewForm({ bookId }: ReviewFormProps) {
 
       <div className="flex flex-col gap-1">
         <label htmlFor="comment" className="text-sm font-medium">
-          Comment
+          Comentario
         </label>
         <textarea
           id="comment"
@@ -57,7 +57,7 @@ export function ReviewForm({ bookId }: ReviewFormProps) {
         disabled={isPending}
         className="self-start rounded-md bg-blue-600 px-4 py-2 font-medium text-white hover:bg-blue-700 disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
       >
-        {isPending ? "Submitting…" : "Submit review"}
+        {isPending ? "Enviando…" : "Enviar reseña"}
       </button>
     </form>
   );
