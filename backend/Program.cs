@@ -8,6 +8,12 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Render (and similar container hosts) inject the port to listen on via PORT.
+// ASPNETCORE_URLS (set locally by launchSettings.json) takes precedence over this.
+var containerPort = Environment.GetEnvironmentVariable("PORT");
+if (containerPort is not null)
+    builder.WebHost.UseUrls($"http://0.0.0.0:{containerPort}");
+
 builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 
@@ -81,12 +87,17 @@ using (var scope = app.Services.CreateScope())
 }
 
 if (app.Environment.IsDevelopment())
+{
     app.MapOpenApi();
+    app.UseHttpsRedirection();
+}
+// In production the host (Render) terminates TLS at its edge and forwards plain HTTP
+// internally — redirecting here would cause a redirect loop.
 
-app.UseHttpsRedirection();
 app.UseCors();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
+app.MapGet("/health", () => Results.Ok(new { status = "healthy" }));
 
 app.Run();

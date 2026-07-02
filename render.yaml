@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: bookreviews-api
+    env: docker
+    rootDir: backend
+    dockerfilePath: ./Dockerfile
+    plan: free
+    healthCheckPath: /health
+    envVars:
+      - key: ASPNETCORE_ENVIRONMENT
+        value: Production
+      - key: ConnectionStrings__DefaultConnection
+        sync: false
+      - key: Jwt__Key
+        sync: false
+      - key: Jwt__Issuer
+        value: BookReviewsApi
+      - key: Jwt__Audience
+        value: BookReviewsApp
+      # .NET binds array config from indexed env vars: Cors__AllowedOrigins__0, __1, etc.
+      - key: Cors__AllowedOrigins__0
+        sync: false
