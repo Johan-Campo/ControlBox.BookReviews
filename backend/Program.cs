@@ -1,6 +1,7 @@
 using BookReviewsApi.Data;
 using BookReviewsApi.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
@@ -9,6 +10,20 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddOpenApi();
+
+// Localize the automatic model-validation response (ASP.NET Core's default title is English-only)
+builder.Services.Configure<ApiBehaviorOptions>(options =>
+{
+    options.InvalidModelStateResponseFactory = context =>
+    {
+        var problemDetails = new ValidationProblemDetails(context.ModelState)
+        {
+            Title = "Se produjeron uno o más errores de validación.",
+            Status = StatusCodes.Status400BadRequest,
+        };
+        return new BadRequestObjectResult(problemDetails);
+    };
+});
 
 // Database
 builder.Services.AddDbContext<AppDbContext>(options =>

@@ -15,11 +15,11 @@ public class AuthService(AppDbContext db, IConfiguration config) : IAuthService
     {
         bool emailExists = await db.Users.AnyAsync(u => u.Email == request.Email);
         if (emailExists)
-            throw new InvalidOperationException("Email already in use.");
+            throw new InvalidOperationException("El correo electrónico ya está en uso.");
 
         bool usernameExists = await db.Users.AnyAsync(u => u.Username == request.Username);
         if (usernameExists)
-            throw new InvalidOperationException("Username already taken.");
+            throw new InvalidOperationException("El nombre de usuario ya está en uso.");
 
         var user = new User
         {
@@ -37,10 +37,10 @@ public class AuthService(AppDbContext db, IConfiguration config) : IAuthService
     public async Task<AuthResponse> LoginAsync(LoginRequest request)
     {
         var user = await db.Users.FirstOrDefaultAsync(u => u.Email == request.Email)
-            ?? throw new UnauthorizedAccessException("Invalid credentials.");
+            ?? throw new UnauthorizedAccessException("Credenciales inválidas.");
 
         if (!BCrypt.Net.BCrypt.Verify(request.Password, user.PasswordHash))
-            throw new UnauthorizedAccessException("Invalid credentials.");
+            throw new UnauthorizedAccessException("Credenciales inválidas.");
 
         return new AuthResponse(GenerateToken(user), user.Username, user.Email);
     }

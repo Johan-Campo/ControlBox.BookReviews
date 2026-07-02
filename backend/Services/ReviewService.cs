@@ -21,7 +21,7 @@ public class ReviewService(AppDbContext db) : IReviewService
     {
         bool bookExists = await db.Books.AnyAsync(b => b.Id == bookId);
         if (!bookExists)
-            throw new KeyNotFoundException($"Book {bookId} not found.");
+            throw new KeyNotFoundException($"No se encontró el libro {bookId}.");
 
         var review = new Review
         {
@@ -47,10 +47,10 @@ public class ReviewService(AppDbContext db) : IReviewService
         var review = await db.Reviews
             .Include(r => r.User)
             .FirstOrDefaultAsync(r => r.Id == reviewId)
-            ?? throw new KeyNotFoundException($"Review {reviewId} not found.");
+            ?? throw new KeyNotFoundException($"No se encontró la reseña {reviewId}.");
 
         if (review.UserId != userId)
-            throw new UnauthorizedAccessException("You can only edit your own reviews.");
+            throw new UnauthorizedAccessException("Solo puedes editar tus propias reseñas.");
 
         review.Rating = request.Rating;
         review.Comment = request.Comment;
@@ -64,10 +64,10 @@ public class ReviewService(AppDbContext db) : IReviewService
     public async Task DeleteAsync(int reviewId, int userId)
     {
         var review = await db.Reviews.FirstOrDefaultAsync(r => r.Id == reviewId)
-            ?? throw new KeyNotFoundException($"Review {reviewId} not found.");
+            ?? throw new KeyNotFoundException($"No se encontró la reseña {reviewId}.");
 
         if (review.UserId != userId)
-            throw new UnauthorizedAccessException("You can only delete your own reviews.");
+            throw new UnauthorizedAccessException("Solo puedes eliminar tus propias reseñas.");
 
         db.Reviews.Remove(review);
         await db.SaveChangesAsync();
