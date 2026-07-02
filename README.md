@@ -120,4 +120,3 @@ El repo incluye `render.yaml` en la raíz (Blueprint de Render) y `backend/Docke
 - **Foto de perfil por URL, no upload real**: con más tiempo agregaría subida de archivo real a Supabase Storage, con validación de tipo/tamaño.
 - **Misma base de datos para desarrollo y producción**: no se provisionó una base separada para producción — el backend desplegado en Render usa la misma instancia de Supabase que uso en desarrollo local. Con más tiempo separaría ambos entornos.
 - **Sin rate limiting**: los endpoints de auth (`login`, `register`, `forgot-password`) no tienen límite de intentos. Con más tiempo agregaría rate limiting vía el middleware nativo de ASP.NET Core.
-- **Cold start del free tier de Render**: la primera petición tras inactividad puede tardar ~50 segundos. Aceptable para una demo, pero en un entorno real ameritaría un plan pago o un ping periódico de mantenimiento.
