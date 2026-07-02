@@ -42,11 +42,11 @@ public class ReviewService(AppDbContext db) : IReviewService
         return new ReviewDto(review.Id, review.Rating, review.Comment, review.CreatedAt, null, username, userId);
     }
 
-    public async Task<ReviewDto> UpdateAsync(int reviewId, int userId, UpdateReviewRequest request)
+    public async Task<ReviewDto> UpdateAsync(int bookId, int reviewId, int userId, UpdateReviewRequest request)
     {
         var review = await db.Reviews
             .Include(r => r.User)
-            .FirstOrDefaultAsync(r => r.Id == reviewId)
+            .FirstOrDefaultAsync(r => r.Id == reviewId && r.BookId == bookId)
             ?? throw new KeyNotFoundException($"No se encontró la reseña {reviewId}.");
 
         if (review.UserId != userId)
@@ -61,9 +61,9 @@ public class ReviewService(AppDbContext db) : IReviewService
         return new ReviewDto(review.Id, review.Rating, review.Comment, review.CreatedAt, review.UpdatedAt, review.User.Username, review.UserId);
     }
 
-    public async Task DeleteAsync(int reviewId, int userId)
+    public async Task DeleteAsync(int bookId, int reviewId, int userId)
     {
-        var review = await db.Reviews.FirstOrDefaultAsync(r => r.Id == reviewId)
+        var review = await db.Reviews.FirstOrDefaultAsync(r => r.Id == reviewId && r.BookId == bookId)
             ?? throw new KeyNotFoundException($"No se encontró la reseña {reviewId}.");
 
         if (review.UserId != userId)

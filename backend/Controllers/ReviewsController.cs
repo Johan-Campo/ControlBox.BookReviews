@@ -40,7 +40,7 @@ public class ReviewsController(IReviewService reviewService) : ControllerBase
         try
         {
             var userId = GetCurrentUserId();
-            var review = await reviewService.UpdateAsync(reviewId, userId, request);
+            var review = await reviewService.UpdateAsync(bookId, reviewId, userId, request);
             return Ok(review);
         }
         catch (KeyNotFoundException ex)
@@ -60,7 +60,7 @@ public class ReviewsController(IReviewService reviewService) : ControllerBase
         try
         {
             var userId = GetCurrentUserId();
-            await reviewService.DeleteAsync(reviewId, userId);
+            await reviewService.DeleteAsync(bookId, reviewId, userId);
             return NoContent();
         }
         catch (KeyNotFoundException ex)

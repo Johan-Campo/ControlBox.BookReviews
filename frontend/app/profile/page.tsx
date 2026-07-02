@@ -14,6 +14,7 @@ export default async function ProfilePage() {
   if (!token) redirect("/login");
 
   const profile = await getMyProfile(token);
+  if (!profile) redirect("/login");
 
   return (
     <main id="main-content" className="mx-auto flex w-full max-w-3xl flex-1 flex-col gap-8 px-6 py-8">

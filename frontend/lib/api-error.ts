@@ -3,6 +3,14 @@ interface ProblemDetailsLike {
   errors?: Record<string, string[]>;
 }
 
+export async function parseJsonSafe(response: Response): Promise<unknown> {
+  try {
+    return await response.json();
+  } catch {
+    return null;
+  }
+}
+
 export function extractErrorMessage(data: unknown, fallback: string): string {
   if (typeof data !== "object" || data === null) return fallback;
 

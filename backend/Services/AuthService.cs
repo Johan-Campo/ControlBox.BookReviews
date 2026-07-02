@@ -10,7 +10,7 @@ using System.Text;
 
 namespace BookReviewsApi.Services;
 
-public class AuthService(AppDbContext db, IConfiguration config) : IAuthService
+public class AuthService(AppDbContext db, IConfiguration config, IHostEnvironment env) : IAuthService
 {
     public async Task<AuthResponse> RegisterAsync(RegisterRequest request)
     {
@@ -30,7 +30,15 @@ public class AuthService(AppDbContext db, IConfiguration config) : IAuthService
         };
 
         db.Users.Add(user);
-        await db.SaveChangesAsync();
+
+        try
+        {
+            await db.SaveChangesAsync();
+        }
+        catch (DbUpdateException)
+        {
+            throw new InvalidOperationException("El correo electrónico o el nombre de usuario ya está en uso.");
+        }
 
         return new AuthResponse(GenerateToken(user), user.Username, user.Email);
     }
@@ -59,7 +67,8 @@ public class AuthService(AppDbContext db, IConfiguration config) : IAuthService
         user.PasswordResetTokenExpiresAt = DateTime.UtcNow.AddHours(1);
         await db.SaveChangesAsync();
 
-        return new ForgotPasswordResponse(genericMessage, rawToken);
+        var exposedToken = env.IsDevelopment() ? rawToken : null;
+        return new ForgotPasswordResponse(genericMessage, exposedToken);
     }
 
     public async Task ResetPasswordAsync(ResetPasswordRequest request)

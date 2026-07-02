@@ -1,7 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { extractErrorMessage } from "@/lib/api-error";
+import { extractErrorMessage, parseJsonSafe } from "@/lib/api-error";
 import { getApiUrl } from "@/lib/api-url";
 import { getSessionToken } from "@/lib/session";
 
@@ -29,7 +29,7 @@ export async function updateProfilePhoto(
   });
 
   if (!response.ok) {
-    const error = await response.json();
+    const error = await parseJsonSafe(response);
     return { error: extractErrorMessage(error, "No se pudo actualizar el perfil.") };
   }
 

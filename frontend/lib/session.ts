@@ -17,7 +17,7 @@ export async function setSessionCookie(token: string): Promise<void> {
     secure: process.env.NODE_ENV === "production",
     sameSite: "lax",
     path: "/",
-    maxAge: 60 * 60 * 24 * 7, // matches backend JWT expiry (7 days)
+    maxAge: 60 * 60 * 24 * 7,
   });
 }
 

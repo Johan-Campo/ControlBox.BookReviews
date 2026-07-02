@@ -1,7 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { extractErrorMessage } from "@/lib/api-error";
+import { extractErrorMessage, parseJsonSafe } from "@/lib/api-error";
 import { getApiUrl } from "@/lib/api-url";
 import { getSessionToken } from "@/lib/session";
 
@@ -30,7 +30,7 @@ export async function createReview(
   });
 
   if (!response.ok) {
-    const error = await response.json();
+    const error = await parseJsonSafe(response);
     return { error: extractErrorMessage(error, "No se pudo enviar la reseña.") };
   }
 
@@ -62,7 +62,7 @@ export async function updateReview(
   if (response.status === 403) return { error: "No tienes permiso para editar esta reseña." };
 
   if (!response.ok) {
-    const error = await response.json();
+    const error = await parseJsonSafe(response);
     return { error: extractErrorMessage(error, "No se pudo actualizar la reseña.") };
   }
 

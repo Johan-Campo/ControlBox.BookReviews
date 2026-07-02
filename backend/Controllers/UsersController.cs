@@ -14,15 +14,29 @@ public class UsersController(IUserService userService) : ControllerBase
     [HttpGet("me")]
     public async Task<IActionResult> GetMe()
     {
-        var profile = await userService.GetProfileAsync(GetCurrentUserId());
-        return Ok(profile);
+        try
+        {
+            var profile = await userService.GetProfileAsync(GetCurrentUserId());
+            return Ok(profile);
+        }
+        catch (KeyNotFoundException ex)
+        {
+            return NotFound(new ProblemDetails { Title = ex.Message });
+        }
     }
 
     [HttpPut("me")]
     public async Task<IActionResult> UpdateMe(UpdateProfileRequest request)
     {
-        var profile = await userService.UpdateProfileAsync(GetCurrentUserId(), request);
-        return Ok(profile);
+        try
+        {
+            var profile = await userService.UpdateProfileAsync(GetCurrentUserId(), request);
+            return Ok(profile);
+        }
+        catch (KeyNotFoundException ex)
+        {
+            return NotFound(new ProblemDetails { Title = ex.Message });
+        }
     }
 
     private int GetCurrentUserId()
