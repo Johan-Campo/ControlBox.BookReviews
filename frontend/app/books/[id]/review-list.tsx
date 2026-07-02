@@ -20,6 +20,7 @@ export function ReviewList({ reviews, bookId, currentUserId }: ReviewListProps) 
           review={review}
           bookId={bookId}
           isOwner={currentUserId !== null && review.userId.toString() === currentUserId}
+          formattedDate={new Date(review.createdAt).toLocaleDateString("es")}
         />
       ))}
     </ul>

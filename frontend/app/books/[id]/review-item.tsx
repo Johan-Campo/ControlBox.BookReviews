@@ -9,11 +9,12 @@ interface ReviewItemProps {
   review: Review;
   bookId: number;
   isOwner: boolean;
+  formattedDate: string;
 }
 
 const initialState: ReviewFormState = { error: null };
 
-export function ReviewItem({ review, bookId, isOwner }: ReviewItemProps) {
+export function ReviewItem({ review, bookId, isOwner, formattedDate }: ReviewItemProps) {
   const router = useRouter();
   const [isEditing, setIsEditing] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
@@ -116,7 +117,7 @@ export function ReviewItem({ review, bookId, isOwner }: ReviewItemProps) {
       </div>
       <p className="mt-1 text-sm text-gray-700">{review.comment}</p>
       <p className="mt-2 text-xs text-gray-500">
-        {new Date(review.createdAt).toLocaleDateString("es")}
+        {formattedDate}
         {review.updatedAt && " (editado)"}
       </p>
       {deleteError && (
