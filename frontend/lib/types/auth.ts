@@ -20,3 +20,8 @@ export interface SessionUser {
   username: string;
   email: string;
 }
+
+export interface ForgotPasswordResponse {
+  message: string;
+  resetToken: string | null;
+}

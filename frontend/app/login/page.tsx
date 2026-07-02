@@ -11,15 +11,23 @@ export default function LoginPage() {
     <main id="main-content" className="flex flex-1 flex-col items-center justify-center gap-6 p-8">
       <h1 className="text-2xl font-bold">Iniciar sesión</h1>
       <LoginForm />
-      <p className="text-sm text-gray-500">
-        ¿No tienes una cuenta?{" "}
+      <div className="flex flex-col items-center gap-2 text-sm text-gray-500">
+        <p>
+          ¿No tienes una cuenta?{" "}
+          <Link
+            href="/register"
+            className="rounded text-blue-600 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
+          >
+            Regístrate
+          </Link>
+        </p>
         <Link
-          href="/register"
+          href="/forgot-password"
           className="rounded text-blue-600 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
         >
-          Regístrate
+          ¿Olvidaste tu contraseña?
         </Link>
-      </p>
+      </div>
     </main>
   );
 }
