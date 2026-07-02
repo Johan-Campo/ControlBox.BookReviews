@@ -21,6 +21,17 @@ export async function getBooks(params: GetBooksParams = {}): Promise<Book[]> {
   return response.json();
 }
 
+export async function getBookById(id: number): Promise<Book | null> {
+  const response = await fetch(`${getApiUrl()}/api/books/${id}`, {
+    cache: "no-store",
+  });
+
+  if (response.status === 404) return null;
+  if (!response.ok) throw new Error("Failed to load book.");
+
+  return response.json();
+}
+
 export async function getCategories(): Promise<string[]> {
   const response = await fetch(`${getApiUrl()}/api/books/categories`, {
     cache: "no-store",
